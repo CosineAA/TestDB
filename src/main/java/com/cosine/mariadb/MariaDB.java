@@ -6,6 +6,7 @@ public final class MariaDB extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getServer().getPluginManager().registerEvents(new Event(), this);
         getCommand("1").setExecutor(new Command());
         new Event();
     }
