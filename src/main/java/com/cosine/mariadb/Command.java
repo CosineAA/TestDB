@@ -25,7 +25,7 @@ public class Command implements CommandExecutor {
 //            Random random = new Random();
 //
 //            pstmt.setInt(1, random.nextInt());
-//            pstmt.setString(2, "농구못하는이예온");
+//            pstmt.setString(2, "테스트임임");
 //            pstmt.setDouble(3, 1.2);
 //
 //            int count = pstmt.executeUpdate();
