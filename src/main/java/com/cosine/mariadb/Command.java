@@ -17,7 +17,7 @@ public class Command implements CommandExecutor {
             Class.forName("com.mysql.jdbc.Driver");
 
             String url = "jdbc:mysql://localhost/test";
-            connection = DriverManager.getConnection(url, "root", "zhtkdls1*");
+            connection = DriverManager.getConnection(url, "root", "qlalfqjsgh");
 
 //            String sql = "INSERT INTO test2 VALUES (?, ?, ?)";
 //            pstmt = connection.prepareStatement(sql);
