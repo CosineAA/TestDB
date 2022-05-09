@@ -1,0 +1,6 @@
+name: MariaDB
+version: '${project.version}'
+main: com.cosine.mariadb.MariaDB
+
+commands:
+  1:
