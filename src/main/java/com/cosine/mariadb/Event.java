@@ -49,8 +49,9 @@ public class Event implements Listener {
             e.printStackTrace();
         } finally {
             try {
-                if(connection != null && !connection.isClosed()) connection.close();
-                if(pstmt != null && !pstmt.isClosed()) pstmt.close();
+                if(connection != null) connection.close();
+                if(pstmt != null) pstmt.close();
+                if(rs != null) rs.close();
             }
             catch (SQLException e){
                 e.printStackTrace();

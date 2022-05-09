@@ -11,6 +11,8 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        new DataBase().Create_DataBase("cosine");
+        new DataBase().Create_Table("sine");
         Player player = (Player) sender;
         Connection connection = null;
         PreparedStatement pstmt = null;
