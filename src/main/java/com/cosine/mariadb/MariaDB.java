@@ -8,11 +8,16 @@ public final class MariaDB extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new Event(), this);
         getCommand("1").setExecutor(new Command());
-        new Event();
+
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
     }
+    private static MariaDB instance;
+    public MariaDB() {instance = this;}
+    public static MariaDB getInstance() {return instance;}
 }

@@ -2,6 +2,7 @@ package com.cosine.mariadb;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
@@ -9,19 +10,22 @@ import java.util.Random;
 
 public class Command implements CommandExecutor {
 
+    FileConfiguration config = MariaDB.getInstance().getConfig();
+
+    final String ip = config.getString("MySQL.주소");
+    final String id = config.getString("MySQL.아이디");
+    final String password = config.getString("MySQL.비밀번호");
+
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        new DataBase().Create_DataBase("cosine");
-        new DataBase().Create_Table("sine");
-        Player player = (Player) sender;
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost/test";
-            connection = DriverManager.getConnection(url, "root", "qlalfqjsgh");
+            String url = "jdbc:mysql://" + ip + "/test";
+            connection = DriverManager.getConnection(url, id, password);
 
 //            String sql = "INSERT INTO test2 VALUES (?, ?, ?)";
 //            pstmt = connection.prepareStatement(sql);
@@ -42,12 +46,9 @@ public class Command implements CommandExecutor {
             pstmt = connection.prepareStatement(sql2);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                if(rs.getString("uuid").equals(player.getUniqueId().toString())) {
-                    sender.sendMessage("숫자:" + rs.getInt(1));
-                    sender.sendMessage("UUID:" + rs.getString(2));
-                    sender.sendMessage("닉네임:" + rs.getString(3));
-                    break;
-                }
+                sender.sendMessage("숫자:" + rs.getInt(1));
+                sender.sendMessage("UUID:" + rs.getString(2));
+                sender.sendMessage("닉네임:" + rs.getString(3));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
