@@ -32,12 +32,11 @@ public class Event implements Listener {
                 }
             }
 
-            String sql = "INSERT INTO test2 VALUES (?, ?, ?)";
+            String sql = "INSERT INTO test2 VALUES (?, ?)";
             pstmt = connection.prepareStatement(sql);
 
-            pstmt.setInt(1, 1);
-            pstmt.setString(2, player.getUniqueId().toString());
-            pstmt.setString(3, player.getName());
+            pstmt.setString(1, player.getUniqueId().toString());
+            pstmt.setString(2, player.getName());
 
             int count = pstmt.executeUpdate();
             if(count == 0) {

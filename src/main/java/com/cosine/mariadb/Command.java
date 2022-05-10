@@ -18,6 +18,7 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        Player player = (Player) sender;
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -46,9 +47,11 @@ public class Command implements CommandExecutor {
             pstmt = connection.prepareStatement(sql2);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                sender.sendMessage("숫자:" + rs.getInt(1));
-                sender.sendMessage("UUID:" + rs.getString(2));
-                sender.sendMessage("닉네임:" + rs.getString(3));
+                if(rs.getString("uuid").equals(player.getUniqueId().toString())) {
+                    sender.sendMessage("UUID:" + rs.getString(1));
+                    sender.sendMessage("닉네임:" + rs.getString(2));
+                    break;
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
