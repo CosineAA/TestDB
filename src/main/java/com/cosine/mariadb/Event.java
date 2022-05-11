@@ -1,14 +1,23 @@
 package com.cosine.mariadb;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.*;
 
 public class Event implements Listener {
+
+    @EventHandler
+    public void aa(PlayerInteractAtEntityEvent event) {
+        Player player = event.getPlayer();
+        Entity entity = event.getRightClicked();
+        entity.setPassenger(player);
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
