@@ -18,24 +18,23 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        Player player = (Player) sender;
-        Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
+        new Thread(()->{
+            Connection connection = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + ip + "/test";
-            connection = DriverManager.getConnection(url, id, password);
+                String url = "jdbc:mysql://" + ip + "/test";
+                connection = DriverManager.getConnection(url, id, password);
 
-//            String sql = "INSERT INTO test2 VALUES (?, ?, ?)";
+//            String sql = "INSERT INTO test2 VALUES (?, ?)";
 //            pstmt = connection.prepareStatement(sql);
 //
 //            Random random = new Random();
 //
-//            pstmt.setInt(1, random.nextInt());
-//            pstmt.setString(2, "테스트임임");
-//            pstmt.setDouble(3, 1.2);
+//            pstmt.setString(1, "테스트임임");
+//            pstmt.setString(2, 1.2);
 //
 //            int count = pstmt.executeUpdate();
 //            if(count == 0) {
@@ -43,27 +42,24 @@ public class Command implements CommandExecutor {
 //                return false;
 //            }
 //            sender.sendMessage("데이터 삽입 성공");
-            String sql2 = "select * from test2";
-            pstmt = connection.prepareStatement(sql2);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                if(rs.getString("uuid").equals(player.getUniqueId().toString())) {
+                String sql2 = "select * from test2";
+                pstmt = connection.prepareStatement(sql2);
+                rs = pstmt.executeQuery();
+                while(rs.next()) {
                     sender.sendMessage("UUID:" + rs.getString(1));
                     sender.sendMessage("닉네임:" + rs.getString(2));
-                    break;
                 }
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(connection != null && !connection.isClosed()) connection.close();
-                if(pstmt != null && !pstmt.isClosed()) pstmt.close();
-            }
-            catch (SQLException e){
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
-            }
-        }
+            } finally {
+                try {
+                    if(connection != null && !connection.isClosed()) connection.close();
+                    if(pstmt != null && !pstmt.isClosed()) pstmt.close();
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }}).start();
         return false;
     }
 }
