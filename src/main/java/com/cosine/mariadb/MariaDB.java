@@ -28,7 +28,6 @@ public final class MariaDB extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
     private static MariaDB instance;
     public MariaDB() {instance = this;}

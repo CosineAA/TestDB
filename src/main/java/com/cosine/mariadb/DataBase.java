@@ -12,15 +12,15 @@ public class DataBase {
     final String id = config.getString("MySQL.아이디");
     final String password = config.getString("MySQL.비밀번호");
 
+    final String url = "jdbc:mysql://" + ip + "/test";
+
     public void Create_DataBase(String db) {
         Connection connection = null;
         PreparedStatement pstmt = null;
-        Statement stmt = null;
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + ip + "/test";
             connection = DriverManager.getConnection(url, id, password);
 
             pstmt = connection.prepareStatement(url);
@@ -48,7 +48,6 @@ public class DataBase {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + ip + "/cosine";
             connection = DriverManager.getConnection(url, id, password);
 
             stmt = connection.createStatement();

@@ -18,9 +18,10 @@ public class Command implements CommandExecutor {
     final String id = config.getString("MySQL.아이디");
     final String password = config.getString("MySQL.비밀번호");
 
+    final String url = "jdbc:mysql://" + ip + "/test";
+
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        Player player = (Player) sender;
         ExecutorService service = Executors.newFixedThreadPool(2);
         service.submit(this::check);
         service.submit(this::check2);
@@ -34,7 +35,6 @@ public class Command implements CommandExecutor {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + ip + "/test";
             connection = DriverManager.getConnection(url, id, password);
 
             String sql2 = "select * from test2";
@@ -62,7 +62,6 @@ public class Command implements CommandExecutor {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + ip + "/test";
             connection = DriverManager.getConnection(url, id, password);
 
             String sql2 = "select * from test2";
