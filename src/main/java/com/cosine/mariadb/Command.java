@@ -22,10 +22,11 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        service.submit(this::check);
-        service.submit(this::check2);
-        service.shutdown();
+        new DataBase().Create_Table("aaa");
+//        ExecutorService service = Executors.newFixedThreadPool(2);
+//        service.submit(this::check);
+//        service.submit(this::check2);
+//        service.shutdown();
         return false;
     }
     public void check() {
@@ -37,8 +38,8 @@ public class Command implements CommandExecutor {
 
             connection = DriverManager.getConnection(url, id, password);
 
-            String sql2 = "select * from test2";
-            pstmt = connection.prepareStatement(sql2);
+            String sql = "select * from test2";
+            pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while(rs.next()) {
                 Bukkit.getLogger().info("1:" + rs.getString(1));
@@ -48,8 +49,8 @@ public class Command implements CommandExecutor {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null && !connection.isClosed()) connection.close();
-                if (pstmt != null && !pstmt.isClosed()) pstmt.close();
+                if (connection != null) connection.close();
+                if (pstmt != null) pstmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -64,8 +65,8 @@ public class Command implements CommandExecutor {
 
             connection = DriverManager.getConnection(url, id, password);
 
-            String sql2 = "select * from test2";
-            pstmt = connection.prepareStatement(sql2);
+            String sql = "select * from test2";
+            pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while(rs.next()) {
                 Bukkit.getLogger().info("3:" + rs.getString(1));
@@ -75,8 +76,8 @@ public class Command implements CommandExecutor {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null && !connection.isClosed()) connection.close();
-                if (pstmt != null && !pstmt.isClosed()) pstmt.close();
+                if (connection != null) connection.close();
+                if (pstmt != null) pstmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

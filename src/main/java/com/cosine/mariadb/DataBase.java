@@ -44,18 +44,16 @@ public class DataBase {
     }
     public void Create_Table(String table) {
         Connection connection = null;
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, id, password);
 
-            stmt = connection.createStatement();
+            pstmt = connection.prepareStatement(url);
 
-            StringBuilder sb = new StringBuilder();
-            String create = sb.append("create table if not exists " + table + "(").append("number int,")
-                    .append("uuid varchar(100),").append("money int").append(");").toString();
-            stmt.execute(create);
+            String create = "create table if not exists " + table + "(number int, uuid varchar(100), money int);";
+            pstmt.execute(create);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
